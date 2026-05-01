@@ -26,6 +26,8 @@ namespace STR
         public static bool running = true;
         public static Int16 currentInstruction = 0;
 
+        public static Int16 currentKey;
+
         private static void SetMem(Int16 reg, Int16 value)
         {
             mem[reg] = value;
@@ -116,6 +118,10 @@ namespace STR
 
                 if (CPU.running) {
                     CPU.currentInstruction = (Int16)CPU.mem[CPU.pc];
+                    
+                    currentKey = (Int16)Raylib.GetKeyPressed();
+                    Console.WriteLine(currentKey);
+
                     switch (CPU.currentInstruction) {
                         case 1: { // load (reg, val)
                             int reg = CPU.mem[CPU.pc + 1];
@@ -176,16 +182,20 @@ namespace STR
                             Console.WriteLine($"DX: 0x{CPU.reg[3]:X4}");
 
                             CPU.running = false;
+                            Raylib.CloseWindow();
                             break;
                         }
                         default:
                             Console.WriteLine($"Unknown opcode: {CPU.currentInstruction}");
                             break;
                     }
+
                     Thread.Sleep(RUN.DelayMs);
                 }
             }
-            Raylib.CloseWindow();
+            if (Raylib.WindowShouldClose()) {
+                Raylib.CloseWindow();
+            }
         }
     }
 }

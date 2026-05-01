@@ -62,6 +62,8 @@ namespace STR
                     break;
                 case 10:
                     Console.Clear();
+                    Raylib.BeginDrawing();
+                    Raylib.EndDrawing();
                     break;
                 case 16:
                     // mov ah, 00h
