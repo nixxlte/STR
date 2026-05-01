@@ -19,7 +19,7 @@ namespace STR {
                 // AX = 0
                 CPU.mem[0] = 1;
                 CPU.mem[1] = CPU.AX;
-                CPU.mem[2] = 0;
+                CPU.mem[2] = 7;
 
                 // BX = 5
                 CPU.mem[3] = 1;
@@ -46,6 +46,8 @@ namespace STR {
 
                 // HALT
                 CPU.mem[16] = 99;
+
+                RUN.INT(10);
 
                 CPU.Update();
             } else {

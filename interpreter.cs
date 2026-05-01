@@ -14,16 +14,13 @@ namespace STR
             {
                 case 1: { // getting invalid register
                         Console.WriteLine("Cannot get invalid register");
-                    break;
-                }
+                break; }
                 case 2: { // setting invalid register
                         Console.WriteLine("Cannot set invalid register");
-                    break;
-                }
+                break; }
                 case 998: { // using invalid int
                         Console.WriteLine("Invalid int");
-                    break;
-                }
+                break; }
             }
 
             if (fatal) {
@@ -31,6 +28,10 @@ namespace STR
                 Thread.Sleep(1000 * 5);
                 Environment.Exit(0);
             }
+        }
+
+        public static void Exit() {
+            Raylib.CloseWindow();
         }
 
         public static void HALT() {
@@ -55,6 +56,11 @@ namespace STR
             CPU.SetRegister(reg, val);
         }
 
+        public static void ADD(Int16 reg, Int16 imm) {
+            int result = CPU.GetRegister(reg) + imm;
+            CPU.SetRegister(reg, result);
+        }
+
         public static void INT(Int16 interrupt) {
             switch (interrupt) {
                 case 0: // print reg
@@ -62,14 +68,14 @@ namespace STR
                     break;
                 case 10:
                     Console.Clear();
-                    Raylib.BeginDrawing();
-                    Raylib.EndDrawing();
+                    // Raylib.ClearBackground(Raylib_cs.Color.RayWhite);
                     break;
                 case 16:
                     // mov ah, 00h
                     // int 16h         ; Program pauses here until a key is pressed
                     // al = a
                     // ah = 1e
+                    CPU.SetRegister(CPU.AL, CPU.currentKey);
 
                     break;
                 default:

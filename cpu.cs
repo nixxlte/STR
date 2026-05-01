@@ -114,8 +114,6 @@ namespace STR
             while (!Raylib.WindowShouldClose()) {
 
                 Raylib.BeginDrawing();
-                Raylib.EndDrawing();
-
                 if (CPU.running) {
                     CPU.currentInstruction = (Int16)CPU.mem[CPU.pc];
                     
@@ -123,6 +121,8 @@ namespace STR
                     Console.WriteLine(currentKey);
 
                     switch (CPU.currentInstruction) {
+                        case 0: {break;}
+
                         case 1: { // load (reg, val)
                             int reg = CPU.mem[CPU.pc + 1];
                             Int16 val = CPU.mem[CPU.pc + 2];
@@ -181,20 +181,32 @@ namespace STR
                             Console.WriteLine($"CX: 0x{CPU.reg[2]:X4}");
                             Console.WriteLine($"DX: 0x{CPU.reg[3]:X4}");
 
+                            RUN.Exit();
                             CPU.running = false;
-                            Raylib.CloseWindow();
                             break;
                         }
                         default:
                             Console.WriteLine($"Unknown opcode: {CPU.currentInstruction}");
                             break;
                     }
+                    Raylib.EndDrawing();
 
                     Thread.Sleep(RUN.DelayMs);
                 }
             }
             if (Raylib.WindowShouldClose()) {
-                Raylib.CloseWindow();
+                if (CPU.running)
+                {
+                    CPU.running = false;
+                    RUN.Exit();
+                    Console.WriteLine("HALT! stopping");
+                    Console.WriteLine($"last instruction before halt: {CPU.mem[CPU.pc - 1]}");
+                    Console.WriteLine($"AX: 0x{CPU.reg[0]:X4}");
+                    Console.WriteLine($"BX: 0x{CPU.reg[1]:X4}");
+                    Console.WriteLine($"CX: 0x{CPU.reg[2]:X4}");
+                    Console.WriteLine($"DX: 0x{CPU.reg[3]:X4}");
+
+                }
             }
         }
     }
