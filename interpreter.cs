@@ -5,6 +5,7 @@ namespace STR
     class RUN
     { //MOV EAX, 5
         public static int DelayMs = 50;
+        public static string KEY = "";
 
         public static void error(int code, bool fatal) {
             Console.Write("ERROR! ");
@@ -32,16 +33,28 @@ namespace STR
         }
 
         public static void main() {
-            
+            // separate
         }
 
         public static void HALT() {
-            
+            CPU.mem[CPU.pc + 1] = 99;
         }
 
         // TODO: move this bullshit to a better place
         // we arent even using this functions
         public static void MOV(Int16 reg, Int16 val) {
+            CPU.SetRegister(reg, val);
+        }
+
+        public static void CLR(Int16 val) {
+            Int16 remain = 8;
+            while (remain != 11) {
+                CPU.SetRegister(remain, val);
+                remain += 1;
+            }
+        }
+
+        public static void LOAD(Int16 reg, Int16 val) {
             CPU.SetRegister(reg, val);
         }
 
@@ -52,6 +65,14 @@ namespace STR
                     break;
                 case 10:
                     Console.Clear();
+                    break;
+                    
+                // mov ah, 00h
+                // int 16h         ; Program pauses here until a key is pressed
+                // al = a
+                // ah = 1e
+                
+                case 16:
                     break;
                 default:
                     error(998, false);

@@ -1,0 +1,5 @@
+INT (interrupts)
+INC (increment)
+DEC (decrement)
+SUB (subtract)
+DIV (divide)
