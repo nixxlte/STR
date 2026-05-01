@@ -95,8 +95,10 @@ namespace STR
                     {
                         Console.WriteLine("HALT! stopping");
                         Console.WriteLine($"last instruction before halt: {CPU.mem[CPU.pc - 1]}");
-                        Console.WriteLine($"r1: {CPU.reg[1]}");
-                        Console.WriteLine($"r2: {CPU.reg[2]}");
+                        Console.WriteLine($"AX: 0x{CPU.reg[0]:X4}");
+                        Console.WriteLine($"BX: 0x{CPU.reg[1]:X4}");
+                        Console.WriteLine($"CX: 0x{CPU.reg[2]:X4}");
+                        Console.WriteLine($"DX: 0x{CPU.reg[3]:X4}");
 
                         CPU.running = false;
                         break;
