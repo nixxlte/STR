@@ -67,8 +67,8 @@ namespace STR
         }
 
         // mov(EAX, 10)        
-        public static void mov(Int16 var, Int16 val) {
-            var = val;
+        public static void mov(Int16 reg, Int16 val) {
+            CPU.reg[reg] = val;
         }
 
         public static void INT(float val) {
