@@ -11,5 +11,5 @@ A little CPU made in C# running ASM
 - `HALT ()` = `99` - Halts the CPU
 
 #### Credits:
-[raic.e](https://github.com/RiceTheDev/): CPU and Raylib functions<br>
-[nixxlte](https://github.com/nixxlte): Assembly 8086 interpreter and Raylib functions
+[raic.e](https://github.com/RiceTheDev/): CPU and Raylib functions (framebuffer)<br>
+[nixxlte](https://github.com/nixxlte): Assembly 8086 interpreter and Raylib functions (keyboard)
