@@ -104,7 +104,7 @@ namespace STR
                         break;
                     }
                     default:
-                        error(999, true);
+                        Console.WriteLine($"Unknown opcode: {CPU.currentInstruction}");
                         break;
                 }
                 Thread.Sleep(RUN.DelayMs);
