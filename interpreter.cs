@@ -111,9 +111,10 @@ namespace STR
             }
         }
 
-        // mov(EAX, 10)        
-        public static void mov(Int16 reg, Int16 val) {
-            CPU.reg[reg] = val;
+        // TODO: move this bullshit to a better place
+        // we arent even using this functions
+        public static void MOV(Int16 reg, Int16 val) {
+            CPU.SetRegister(reg, val);
         }
 
         public static void INT(Int16 interrupt) {
