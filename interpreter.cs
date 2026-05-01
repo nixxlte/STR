@@ -7,17 +7,25 @@ namespace STR
         public static int DelayMs = 50;
 
         public static void error(int code, bool fatal) {
-            Console.WriteLine("ERROR! code: ", code.ToString());
-            Console.Write("Error is: ");
-            switch (fatal) {
-                case true:
-                    Console.Write("Fatal\n");
-                    Thread.Sleep(5000);
-                    Environment.Exit(0);
+            Console.Write("ERROR! ");
+            switch (code)
+            {
+                case 1: { // getting invalid register
+                    Console.WriteLine("Cannot get invalid register");
                     break;
-                case false:
-                    Console.Write("Not fatal\n");
+                }
+
+                case 2: { // setting invalid register
+                    Console.WriteLine("Cannot set invalid register");
                     break;
+                }
+            }
+
+            if (fatal)
+            {
+                Console.Write("Fatal\n");
+                Thread.Sleep(5000);
+                Environment.Exit(0);
             }
         }
 
