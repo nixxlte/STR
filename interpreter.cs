@@ -116,12 +116,14 @@ namespace STR
             CPU.reg[reg] = val;
         }
 
-        public static void INT(float val) {
-            if (val == 10f) {
-                
-            } 
-            else {
-                error(1, true);
+        public static void INT(Int16 interrupt) {
+            switch (interrupt) {
+                case 0: // print reg
+                    Console.WriteLine(CPU.GetRegister(0));
+                    break;
+                default:
+                    error(998, false);
+                    break;
             }
         }
     }
