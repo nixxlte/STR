@@ -30,8 +30,8 @@ namespace STR
                 {
                     case 1: // load (reg, val)
                     {
-                        int reg = CPU.mem[CPU.pc + 1];
-                        int val = CPU.mem[CPU.pc + 2];
+                        Int16 reg = CPU.mem[CPU.pc + 1];
+                        Int16 val = CPU.mem[CPU.pc + 2];
 
                         CPU.reg[reg] = val;
                         CPU.pc += 3;
@@ -40,8 +40,8 @@ namespace STR
 
                     case 2: // add (reg, reg)
                     {
-                        int r1 = CPU.mem[CPU.pc + 1];
-                        int r2 = CPU.mem[CPU.pc + 2];
+                        Int16 r1 = CPU.mem[CPU.pc + 1];
+                        Int16 r2 = CPU.mem[CPU.pc + 2];
 
                         CPU.reg[r1] += CPU.reg[r2];
                         CPU.pc += 3;
@@ -67,7 +67,7 @@ namespace STR
         }
 
         // mov(EAX, 10)        
-        public static void mov(int var, int val) {
+        public static void mov(Int16 var, Int16 val) {
             var = val;
         }
 
