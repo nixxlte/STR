@@ -18,7 +18,7 @@ namespace STR
         public static Int16 CX = 10;
         public static Int16 DX = 11;
 
-        public static Int16 pc = 1; // program counter
+        public static Int16 pc = 0; // program counter
         public static Int16[] mem = new Int16[256]; // 256 bytes
         public static UInt16[] reg = new UInt16[4]; // general purpose registers
         public static bool ZF = false; // zero flag
