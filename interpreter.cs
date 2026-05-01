@@ -1,39 +1,36 @@
 using System;
+using Raylib_cs;
 
 namespace STR
 {
     class RUN
     { //MOV EAX, 5
         public static int DelayMs = 50;
-        public static string KEY = "";
+        public static string KEY = string.Empty;
 
         public static void error(int code, bool fatal) {
             Console.Write("ERROR! ");
             switch (code)
             {
                 case 1: { // getting invalid register
-                    Console.WriteLine("Cannot get invalid register");
+                        Console.WriteLine("Cannot get invalid register");
                     break;
                 }
                 case 2: { // setting invalid register
-                    Console.WriteLine("Cannot set invalid register");
+                        Console.WriteLine("Cannot set invalid register");
                     break;
                 }
-                case 998: {
-                    Console.WriteLine("Invalid int");
+                case 998: { // using invalid int
+                        Console.WriteLine("Invalid int");
                     break;
                 }
             }
 
             if (fatal) {
                 Console.Write("Fatal\n");
-                Thread.Sleep(5000);
+                Thread.Sleep(1000 * 5);
                 Environment.Exit(0);
             }
-        }
-
-        public static void main() {
-            // separate
         }
 
         public static void HALT() {
@@ -66,13 +63,12 @@ namespace STR
                 case 10:
                     Console.Clear();
                     break;
-                    
-                // mov ah, 00h
-                // int 16h         ; Program pauses here until a key is pressed
-                // al = a
-                // ah = 1e
-                
                 case 16:
+                    // mov ah, 00h
+                    // int 16h         ; Program pauses here until a key is pressed
+                    // al = a
+                    // ah = 1e
+
                     break;
                 default:
                     error(998, false);
