@@ -11,25 +11,43 @@ namespace STR {
         static void Main(string[] args) {
             var cmd = args.FirstOrDefault() ?? "";
             if (args[0] != string.Empty) {
-                CPU.mem[0] = 1; // load
-                CPU.mem[1] = 1; // reg 1
-                CPU.mem[2] = 50; // value reg 1
 
-                CPU.mem[3] = 1; // load
-                CPU.mem[4] = 2; // reg 2
-                CPU.mem[5] = 404; // value reg 2
+                // little program to:
+                // ax = 0, bx = 5
+                // while ax != 5, ax++
 
-                CPU.mem[6] = 2; // add
-                CPU.mem[7] = 1; // reg 1
-                CPU.mem[8] = 2; // reg 2
+                // AX = 0
+                CPU.mem[0] = 1;
+                CPU.mem[1] = CPU.AX;
+                CPU.mem[2] = 0;
 
-                CPU.mem[9] = 99; // halt
-                CPU.pc = 0;
-                CPU.running = true;
+                // BX = 5
+                CPU.mem[3] = 1;
+                CPU.mem[4] = CPU.BX;
+                CPU.mem[5] = 5;
+
+                // CMP AX, BX
+                CPU.mem[6] = 5;
+                CPU.mem[7] = CPU.AX;
+                CPU.mem[8] = CPU.BX;
+
+                // JZ -> HALT
+                CPU.mem[9] = 4;
+                CPU.mem[10] = 16;
+
+                // AX = AX + 1
+                CPU.mem[11] = 2;
+                CPU.mem[12] = CPU.AX;
+                CPU.mem[13] = 1;
+
+                // JMP loop
+                CPU.mem[14] = 3;
+                CPU.mem[15] = 6;
+
+                // HALT
+                CPU.mem[16] = 99;
+
                 RUN.main();
-                
-                // reg 1 = 50
-                // reg 2 = 404
             } else {
                 Console.WriteLine("Please enter a file to run in STR cpu");
                 Thread.Sleep(5000);
