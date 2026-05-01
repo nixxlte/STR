@@ -38,20 +38,55 @@ namespace STR
                 {
                     case 1: // load (reg, val)
                     {
-                        Int16 reg = CPU.mem[CPU.pc + 1];
+                        int reg = CPU.mem[CPU.pc + 1];
                         Int16 val = CPU.mem[CPU.pc + 2];
 
-                        CPU.reg[reg] = val;
+                        CPU.SetRegister(reg, val);
                         CPU.pc += 3;
                         break;
                     }
 
-                    case 2: // add (reg, reg)
+                    case 2: // add (reg, imm)
                     {
-                        Int16 r1 = CPU.mem[CPU.pc + 1];
-                        Int16 r2 = CPU.mem[CPU.pc + 2];
+                        int r = CPU.mem[CPU.pc + 1];
+                        int val = CPU.mem[CPU.pc + 2];
 
-                        CPU.reg[r1] += CPU.reg[r2];
+                        int result = CPU.GetRegister(r) + val;
+
+                        CPU.SetRegister(r, result);
+                        CPU.ZF = (result == 0);
+
+                        CPU.pc += 3;
+                        break;
+                    }
+
+                    case 3: // JMP (addr)
+                    {
+                        int addr = CPU.mem[CPU.pc + 1];
+                        CPU.pc = (Int16)addr;
+                        break;
+                    }
+
+                    case 4: // JZ (addr)
+                    {
+                        int addr = CPU.mem[CPU.pc + 1];
+
+                        if (CPU.ZF) CPU.pc = (Int16)addr;
+                        else CPU.pc += 2;
+
+                        break;
+                    }
+
+                    case 5: // CMP (reg, reg)
+                    {
+                        int r1 = CPU.mem[CPU.pc + 1];
+                        int r2 = CPU.mem[CPU.pc + 2];
+
+                        int val1 = CPU.GetRegister(r1);
+                        int val2 = CPU.GetRegister(r2);
+
+                        CPU.ZF = (val1 == val2);
+
                         CPU.pc += 3;
                         break;
                     }
