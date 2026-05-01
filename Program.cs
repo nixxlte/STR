@@ -47,7 +47,7 @@ namespace STR {
                 // HALT
                 CPU.mem[16] = 99;
 
-                RUN.main();
+                CPU.Update();
             } else {
                 Console.WriteLine("Please enter a file to run in STR cpu");
                 Thread.Sleep(5000);
