@@ -11,10 +11,12 @@ namespace STR {
         static void Main(string[] args) {
             var cmd = args.FirstOrDefault() ?? "";
             if (args[0] != string.Empty) {
+                //Compiler.Compile();
 
                 var bytes = File.ReadAllBytes(args[0]);
                 for (int i = 0; i < bytes.Length; i++) { // load the code on the memory
                     CPU.mem[i] = bytes[i];
+                    Console.WriteLine(bytes[i]);
                 }
 
                 // little program to:
