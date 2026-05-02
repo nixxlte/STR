@@ -10,7 +10,7 @@ namespace STR {
 
         static void Main(string[] args) {
             var cmd = args.FirstOrDefault() ?? "";
-            if (args[0] != string.Empty) {
+            if (args[0] != string.Empty && args[0].ToLower() != "--compile") {
                 //Compiler.Compile();
 
                 var bytes = File.ReadAllBytes(args[0]);
@@ -57,6 +57,8 @@ namespace STR {
                 //RUN.INT(10);
 
                 CPU.Update();
+            } else if (IsCommand(cmd, "--compile")) {
+                Compiler.Compile(args[1]);
             } else {
                 Console.WriteLine("Please enter a file to run in STR cpu");
                 Thread.Sleep(5000);

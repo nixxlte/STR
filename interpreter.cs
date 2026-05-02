@@ -7,6 +7,7 @@ namespace STR
     { //MOV EAX, 5
         public static int DelayMs = 50;
         public static string KEY = string.Empty;
+        public static bool isCompiling;
 
         public static void error(int code, bool fatal) {
             Console.Write("ERROR! ");

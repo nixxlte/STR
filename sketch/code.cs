@@ -1,8 +1,10 @@
 namespace STR {
     class Code {
         public static void assembly() {
-            RUN.MOV(CPU.AL, 2);
-            RUN.INT(10);
+            RUN.MOV(CPU.AX, 7);
+            RUN.MOV(CPU.BX, 5);
+            // RUN.JZ(16);
+            
             RUN.HALT();
             // main.str
         }

@@ -1,21 +1,79 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
-namespace STR {
-    class Compiler {
-        public static void Compile() {
-            byte[] program = new byte[] {
-                1, 8, 7,
-                1, 9, 5,
-                5, 8, 9,
-                4, 16,
-                2, 8, 1,
-                3, 6,
-                99
-            };
+class Compiler {
+    static Dictionary<string, byte> opcodes = new(StringComparer.OrdinalIgnoreCase) {
+        { "MOV", 1 },
+        { "JMP", 3 },
+        { "JZ", 4 },
+        { "CMP", 5 },
+        { "HALT", 99 }
+    };
 
-            File.WriteAllBytes("program.str", program);
+    static Dictionary<string, byte> registers = new(StringComparer.OrdinalIgnoreCase) {
+        { "AX", 8 },
+        { "BX", 9 },
+        { "AH", 10 },
+        { "AL", 11 }
+    };
+
+    static Dictionary<string, int> labels = new(StringComparer.OrdinalIgnoreCase) {
+        { "LOOP", 1 }
+    };
+
+    public static void Compile(string input) {
+        var lines = File.ReadAllLines(input);
+        var program = new List<byte>();
+
+        int address = 0;
+
+        foreach (var line in lines)
+        {
+            var clean = line.Trim();
+            if (string.IsNullOrEmpty(clean)) continue;
+
+            if (clean.EndsWith(":")) {
+                var label = clean.Replace(":", "");
+                labels[label] = address;
+                continue;
+            }
+
+            var parts = clean.Replace(",", "").Split(' ');
+
+            var instr = parts[0].ToUpper();
+
+            switch (instr.ToUpper())
+            {
+                case "MOV":
+                    program.Add(opcodes["MOV"]);
+                    program.Add(registers[parts[1]]);
+                    program.Add(byte.Parse(parts[2]));
+                    break;
+
+                case "CMP":
+                    program.Add(opcodes["CMP"]);
+                    program.Add(registers[parts[1]]);
+                    program.Add(registers[parts[2]]);
+                    break;
+
+                case "JZ":
+                    program.Add(opcodes["JZ"]);
+                    program.Add(byte.Parse(parts[1]));
+                    break;
+
+                case "HALT":
+                    program.Add(opcodes["HALT"]);
+                    break;
+
+                case "JMP":
+                    program.Add(opcodes["JMP"]);
+                    program.Add((byte)labels[parts[1]]);
+                break;
+            }
         }
+
+        File.WriteAllBytes("output.str", program.ToArray());
+        Console.WriteLine("COMPILED!");
     }
 }
-

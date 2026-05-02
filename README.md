@@ -12,4 +12,4 @@ A little CPU made in C# running ASM
 
 #### Credits:
 [raic.e](https://github.com/RiceTheDev/): CPU and Raylib functions (framebuffer)<br>
-[nixxlte](https://github.com/nixxlte): Assembly 8086 interpreter and Raylib functions (keyboard)
+[nixxlte](https://github.com/nixxlte): Assembly 8086 interpreter and compiler, and Raylib functions (keyboard)
