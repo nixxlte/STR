@@ -1,26 +1,24 @@
 using System;
 using Raylib_cs;
 
-namespace STR
-{
-    class RUN
-    { //MOV EAX, 5
+namespace STR {
+    class RUN { //MOV EAX, 5
         public static int DelayMs = 50;
         public static string KEY = string.Empty;
-        public static bool isCompiling;
+        // public static bool isCompiling;
 
         public static void error(int code, bool fatal) {
             Console.Write("ERROR! ");
             switch (code)
             {
                 case 1: { // getting invalid register
-                        Console.WriteLine("Cannot get invalid register");
+                        Console.Write("Cannot get invalid register\n");
                 break; }
                 case 2: { // setting invalid register
-                        Console.WriteLine("Cannot set invalid register");
+                        Console.Write("Cannot set invalid register\n");
                 break; }
                 case 998: { // using invalid int
-                        Console.WriteLine("Invalid int");
+                        Console.Write("Invalid int\n");
                 break; }
             }
 

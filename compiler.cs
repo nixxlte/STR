@@ -14,13 +14,11 @@ class Compiler {
     static Dictionary<string, byte> registers = new(StringComparer.OrdinalIgnoreCase) {
         { "AX", 8 },
         { "BX", 9 },
-        { "AH", 10 },
-        { "AL", 11 }
+        { "CX", 10 },
+        { "DX", 11 }
     };
 
-    static Dictionary<string, int> labels = new(StringComparer.OrdinalIgnoreCase) {
-        { "LOOP", 1 }
-    };
+    static Dictionary<string, int> labels = new(StringComparer.OrdinalIgnoreCase) {};
 
     public static void Compile(string input) {
         var lines = File.ReadAllLines(input);
