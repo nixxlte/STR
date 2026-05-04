@@ -96,10 +96,10 @@ namespace STR
                 case 6: SetLow(3, (byte)value); break;  // DL
                 case 7: SetHigh(3, (byte)value); break; // DH
 
-                case 8: reg[0] = (UInt16)value; break;  // AX
-                case 9: reg[1] = (UInt16)value; break;  // BX
-                case 10: reg[2] = (UInt16)value; break; // CX
-                case 11: reg[3] = (UInt16)value; break; // DX
+                case 8:  reg[0] = (UInt16)value; break;  // AX
+                case 9:  reg[1] = (UInt16)value; break;  // BX
+                case 10: reg[2] = (UInt16)value; break;  // CX
+                case 11: reg[3] = (UInt16)value; break;  // DX
 
                 default: {
                     RUN.error(2, true);
