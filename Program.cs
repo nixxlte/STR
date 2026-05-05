@@ -11,77 +11,74 @@ namespace STR {
         }
 
         static void ParseArgs(string[] args) {
-            foreach (string arg in args)
+            switch (args[0].ToLower())
             {
-                switch (arg.ToLower())
+                case "--compile":
                 {
-                    case "--compile":
-                    {
-                        if (args.Length != 2) {
-                            Console.WriteLine("No .asm file supplied for compiling,\nUse: --compile <file.str>");
-                            break;
-                        }
-
-                        var file = args[1];
-
-                        if (!File.Exists(file)) {
-                            Console.WriteLine("The file does not exist!");
-                            break;
-                        }
-
-                        // just my opinion, but better not check for .S files,
-                        // not common with 8086 assembly.
-                        if (!file.ToLower().EndsWith(".asm")) {
-                            Console.WriteLine("This isn\'t a .asm file! Rename it.");
-                            break;
-                        }
-                        
-                        Compiler.Compile(file);
-                        break;
-                    }
-                    case "--help":
-                    {
-                        Console.WriteLine("str - stupidly simple cpu emulator");
-                        Console.WriteLine();
-
-                        Console.WriteLine("Usage:");
-                        Console.WriteLine("  str --compile <file.asm>    Compile an ASM file into a STR binary");
-                        Console.WriteLine("  str <file.str>              Run a STR program");
-                        Console.WriteLine();
-
-                        Console.WriteLine("Options:");
-                        Console.WriteLine("  --help                      Show this help message");
-                        Console.WriteLine("  --version                   Show version information");
-
+                    if (args.Length != 2) {
+                        Console.WriteLine("No .asm file supplied for compiling,\nUse: --compile <file.str>");
                         break;
                     }
 
-                    case "--version":
-                    {
-                        Console.WriteLine($"str version {versionMajor}.{versionMinor}");
-                        Console.WriteLine("a simple cpu emulator written in c#");
-                        Console.WriteLine();
-                        Console.WriteLine("made by nixxlte and raice");
+                    var file = args[1];
+
+                    if (!File.Exists(file)) {
+                        Console.WriteLine("The file does not exist!");
                         break;
                     }
 
-                    default:
-                    {
-                        if (arg.ToLower().EndsWith(".str")) {
-                            if (File.Exists(arg)) {
-                                var bytes = File.ReadAllBytes(arg);
-                                for (int i = 0; i < bytes.Length; i++) { // load the code on the memory
-                                    CPU.mem[i] = bytes[i];
-                                    Console.WriteLine(bytes[i]);
-                                }
+                    // just my opinion, but better not check for .S files,
+                    // not common with 8086 assembly.
+                    if (!file.ToLower().EndsWith(".asm")) {
+                        Console.WriteLine("This isn\'t a .asm file! Rename it.");
+                        break;
+                    }
+                    
+                    Compiler.Compile(file);
+                    break;
+                }
+                case "--help":
+                {
+                    Console.WriteLine("str - stupidly simple cpu emulator");
+                    Console.WriteLine();
 
-                                CPU.Initialize();
+                    Console.WriteLine("Usage:");
+                    Console.WriteLine("  str --compile <file.asm>    Compile an ASM file into a STR binary");
+                    Console.WriteLine("  str <file.str>              Run a STR program");
+                    Console.WriteLine();
+
+                    Console.WriteLine("Options:");
+                    Console.WriteLine("  --help                      Show this help message");
+                    Console.WriteLine("  --version                   Show version information");
+
+                    break;
+                }
+
+                case "--version":
+                {
+                    Console.WriteLine($"str version {versionMajor}.{versionMinor}");
+                    Console.WriteLine("a simple cpu emulator written in c#");
+                    Console.WriteLine();
+                    Console.WriteLine("made by nixxlte and raice");
+                    break;
+                }
+
+                default:
+                {
+                    if (args[0] != null && args[0].ToLower().EndsWith(".str")) {
+                        if (File.Exists(args[0])) {
+                            var bytes = File.ReadAllBytes(args[0]);
+                            for (int i = 0; i < bytes.Length; i++) { // load the code on the memory
+                                CPU.mem[i] = bytes[i];
+                                Console.WriteLine(bytes[i]);
                             }
-                        } else {
-                            Console.WriteLine($"Unknown argument: {arg}");
+
+                            CPU.Initialize();
                         }
-                        break;
+                    } else {
+                        Console.WriteLine($"Unknown argument: {args[0]}");
                     }
+                    break;
                 }
             }
         }
