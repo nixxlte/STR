@@ -1,6 +1,9 @@
-mov ax, 7
-mov bx, 5
+mov bx, 27
 loop:
-jz 16
+int 0
+int 16
+cmp ax, bx
+jz exit
 jmp loop
+exit:
 HALT

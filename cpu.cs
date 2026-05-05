@@ -117,9 +117,12 @@ namespace STR
                 if (CPU.running) {
                     CPU.currentInstruction = (Int16)CPU.mem[CPU.pc];
                     
-                    currentKey = (Int16)Raylib.GetKeyPressed();
-                    Console.WriteLine(currentKey);
-
+                    int pressed = Raylib.GetKeyPressed();
+                    if (pressed != 0) 
+                    {
+                        currentKey = (Int16)pressed;
+                    }
+                    
                     switch (CPU.currentInstruction) {
                         case 0: {break;}
 
@@ -207,6 +210,11 @@ namespace STR
                             break;
                     }
                     Raylib.EndDrawing();
+
+                    if (currentKey != 0 && !Raylib.IsKeyDown((KeyboardKey)currentKey)) 
+                    {
+                        currentKey = 0; 
+                    }
 
                     Thread.Sleep(RUN.DelayMs);
                 }
