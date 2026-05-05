@@ -4,7 +4,6 @@ using Raylib_cs;
 namespace STR {
     class RUN { //MOV EAX, 5
         public static int DelayMs = 50;
-        public static string KEY = string.Empty;
         // public static bool isCompiling;
 
         public static void error(int code, bool fatal) {
