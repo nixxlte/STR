@@ -23,7 +23,7 @@ namespace STR {
 
             if (fatal) {
                 Console.Write("Fatal\n");
-                Thread.Sleep(1000 * 5);
+                Thread.Sleep(1000 * 3);
                 Environment.Exit(0);
             }
         }
