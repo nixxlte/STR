@@ -23,9 +23,7 @@ class Compiler {
     public static void Compile(string input) {
         var lines = File.ReadAllLines(input);
         var program = new List<byte>();
-
         int address = 0;
-
         foreach (var line in lines)
         {
             var clean = line.Trim();
@@ -38,10 +36,35 @@ class Compiler {
             }
 
             var parts = clean.Replace(",", "").Split(' ');
-
             var instr = parts[0].ToUpper();
 
-            switch (instr.ToUpper())
+            // Calculate instruction size
+            switch (instr)
+            {
+                case "MOV": address += 3; break;
+                case "CMP": address += 3; break;
+                case "JZ": address += 2; break;
+                case "JMP": address += 2; break;
+                case "INT": address += 2; break;
+                case "CLR": address += 2; break;
+                case "HALT": address += 1; break;
+            }
+        }
+
+        address = 0;
+        foreach (var line in lines)
+        {
+            var clean = line.Trim();
+            if (string.IsNullOrEmpty(clean)) continue;
+
+            if (clean.EndsWith(":")) {
+                continue;
+            }
+
+            var parts = clean.Replace(",", "").Split(' ');
+            var instr = parts[0].ToUpper();
+
+            switch (instr)
             {
                 case "MOV":
                     program.Add(opcodes["MOV"]);
@@ -57,7 +80,7 @@ class Compiler {
 
                 case "JZ":
                     program.Add(opcodes["JZ"]);
-                    program.Add(byte.Parse(parts[1]));
+                    program.Add((byte)labels[parts[1]]);
                     break;
 
                 case "HALT":
