@@ -62,7 +62,7 @@ namespace STR {
         public static void INT(Int16 interrupt) {
             switch (interrupt) {
                 case 0: // print reg
-                    Console.WriteLine(CPU.GetRegister(0));
+                    Console.WriteLine(CPU.GetRegister(CPU.AX));
                     break;
                 case 10:
                     Console.Clear();
