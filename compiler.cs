@@ -8,6 +8,8 @@ class Compiler {
         { "JMP", 3 },
         { "JZ", 4 },
         { "CMP", 5 },
+        { "CLR", 6 },
+        { "INT", 7 },
         { "HALT", 99 }
     };
 
@@ -90,7 +92,17 @@ class Compiler {
                 case "JMP":
                     program.Add(opcodes["JMP"]);
                     program.Add((byte)labels[parts[1]]);
-                break;
+                    break;
+
+                case "CLR":
+                    program.Add(opcodes["CLR"]);
+                    program.Add(byte.Parse(parts[1]));
+                    break;
+
+                case "INT":
+                    program.Add(opcodes["INT"]);
+                    program.Add(byte.Parse(parts[1]));
+                    break;
             }
         }
 

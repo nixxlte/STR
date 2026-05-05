@@ -173,6 +173,23 @@ namespace STR
                             break;
                         }
 
+                        case 6: { // CLR (val)
+                            int v = CPU.mem[CPU.pc + 1];
+                            CPU.SetRegister(8, (Int16)v); // AX
+                            CPU.SetRegister(9, (Int16)v); // BX
+                            CPU.SetRegister(10, (Int16)v); // CX
+                            CPU.SetRegister(11, (Int16)v); // DX
+                            CPU.pc += 2;
+                            break;
+                        }
+
+                        case 7: { // INT (imm)
+                            int interrupt = CPU.mem[CPU.pc + 1];
+                            RUN.INT((Int16)interrupt);
+                            CPU.pc += 2;
+                            break;
+                        }
+
                         case 99: { // HALT ()
                             Console.WriteLine("HALT! stopping");
                             Console.WriteLine($"last instruction before halt: {CPU.mem[CPU.pc - 1]}");

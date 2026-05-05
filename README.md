@@ -7,7 +7,8 @@ A little CPU made in C# running ASM
 - `JMP (addr)` = `3` - Sets the pc(program counter) to `addr`
 - `JZ (addr)` = `4` - IF ZF equals zero, jump to addr
 - `CMP (reg, reg)` = `5` - Compares `reg` with `reg` (then sets ZF)
-- `CLR (val)` = `6` - Sets registers and `reg + 1` to `val`
+- `CLR (val)` = `6` - Clear all registers to `val`
+- `INT (imm)` = `7` - Interrupt, calls a function based on the `imm`
 - `HALT ()` = `99` - Halts the CPU
 
 #### Credits:
