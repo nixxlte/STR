@@ -108,7 +108,7 @@ namespace STR
             }
         }
 
-        public static void Update() {
+        public static void Initialize() {
             Raylib.InitWindow(800, 600, "STR Framebuffer");
 
             while (!Raylib.WindowShouldClose()) {
