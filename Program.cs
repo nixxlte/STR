@@ -3,6 +3,8 @@ using System.IO;
 
 namespace STR {
     class Program {
+        public static int versionMajor = 0;
+        public static int versionMinor = 1;
 
         public static bool IsCommand(string input, string full) {
             return input.Equals(full, StringComparison.OrdinalIgnoreCase);
