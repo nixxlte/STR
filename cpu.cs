@@ -28,40 +28,32 @@ namespace STR
 
         public static Int16 currentKey;
 
-        private static void SetMem(Int16 reg, Int16 value)
-        {
+        private static void SetMem(Int16 reg, Int16 value) {
             mem[reg] = value;
         }
 
-        private static Int16 GetMem(Int16 reg)
-        {
+        private static Int16 GetMem(Int16 reg) {
             return mem[reg];
         }
 
-        private static byte GetLow(int r)
-        {
+        private static byte GetLow(int r) {
             return (Byte)(reg[r] & 0x00FF);
         }
 
-        private static byte GetHigh(int r)
-        {
+        private static byte GetHigh(int r) {
             return (Byte)((reg[r] & 0xFF00) >> 8);
         }
 
-        private static void SetLow(int r, byte value)
-        {
+        private static void SetLow(int r, byte value) {
             reg[r] = (UInt16)((reg[r] & 0xFF00) | value);
         }
 
-        private static void SetHigh(int r, byte value)
-        {
+        private static void SetHigh(int r, byte value) {
             reg[r] = (UInt16)((reg[r] & 0x00FF) | value << 8);
         }
 
-        public static int GetRegister(int code)
-        {
-            switch (code)
-            {
+        public static int GetRegister(int code) {
+            switch (code) {
                 case 0: return GetLow(0);  // AL
                 case 1: return GetHigh(0); // AH
                 case 2: return GetLow(1);  // BL
@@ -83,10 +75,8 @@ namespace STR
             }
         }
 
-        public static void SetRegister(int code, int value)
-        {
-            switch (code)
-            {
+        public static void SetRegister(int code, int value) {
+            switch (code) {
                 case 0: SetLow(0, (byte)value); break;  // AL
                 case 1: SetHigh(0, (byte)value); break; // AH
                 case 2: SetLow(1, (byte)value); break;  // BL
@@ -118,8 +108,7 @@ namespace STR
                     CPU.currentInstruction = (Int16)CPU.mem[CPU.pc];
                     
                     int pressed = Raylib.GetKeyPressed();
-                    if (pressed != 0) 
-                    {
+                    if (pressed != 0)  {
                         currentKey = (Int16)pressed;
                     }
                     
@@ -132,8 +121,7 @@ namespace STR
 
                             CPU.SetRegister(reg, val);
                             CPU.pc += 3;
-                            break;
-                        }
+                        break; }
 
                         case 2: { // add (reg, imm)
                             int r = CPU.mem[CPU.pc + 1];
@@ -145,14 +133,12 @@ namespace STR
                             CPU.ZF = (result == 0);
 
                             CPU.pc += 3;
-                            break;
-                        }
+                        break; }
 
                         case 3: { // JMP (addr)
                             int addr = CPU.mem[CPU.pc + 1];
                             CPU.pc = (Int16)addr;
-                            break;
-                        }
+                        break; }
 
                         case 4: { // JZ (addr)
                             int addr = CPU.mem[CPU.pc + 1];
@@ -160,8 +146,7 @@ namespace STR
                             if (CPU.ZF) CPU.pc = (Int16)addr;
                             else CPU.pc += 2;
 
-                            break;
-                        }
+                        break; }
 
                         case 5: { // CMP (reg, reg)
                             int r1 = CPU.mem[CPU.pc + 1];
@@ -173,8 +158,7 @@ namespace STR
                             CPU.ZF = (val1 == val2);
 
                             CPU.pc += 3;
-                            break;
-                        }
+                        break; }
 
                         case 6: { // CLR (val)
                             int v = CPU.mem[CPU.pc + 1];
@@ -183,15 +167,13 @@ namespace STR
                             CPU.SetRegister(10, (Int16)v); // CX
                             CPU.SetRegister(11, (Int16)v); // DX
                             CPU.pc += 2;
-                            break;
-                        }
+                        break; }
 
                         case 7: { // INT (imm)
                             int interrupt = CPU.mem[CPU.pc + 1];
                             RUN.INT((Int16)interrupt);
                             CPU.pc += 2;
-                            break;
-                        }
+                        break; }
 
                         case 99: { // HALT ()
                             Console.WriteLine("HALT! stopping");
@@ -203,16 +185,14 @@ namespace STR
 
                             RUN.Exit();
                             CPU.running = false;
-                            break;
-                        }
-                        default:
+                        break; }
+                        default: {
                             Console.WriteLine($"Unknown opcode: {CPU.currentInstruction}");
-                            break;
+                        break; }
                     }
                     Raylib.EndDrawing();
 
-                    if (currentKey != 0 && !Raylib.IsKeyDown((KeyboardKey)currentKey)) 
-                    {
+                    if (currentKey != 0 && !Raylib.IsKeyDown((KeyboardKey)currentKey)) {
                         currentKey = 0; 
                     }
 
@@ -220,8 +200,7 @@ namespace STR
                 }
             }
             if (Raylib.WindowShouldClose()) {
-                if (CPU.running)
-                {
+                if (CPU.running) {
                     CPU.running = false;
                     RUN.Exit();
                     Console.WriteLine("HALT! stopping");

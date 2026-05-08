@@ -1,6 +1,8 @@
 using System;
 using Raylib_cs;
 
+// Code by NixxLTE -w-
+
 namespace STR {
     class RUN { //MOV EAX, 5
         public static int DelayMs = 50;

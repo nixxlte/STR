@@ -13,7 +13,7 @@
   "XOR",
   "SS",
   "AAA",
-  "CMP",
+  "CMP", x
   "DS",
   "AAS",
   "INC",
@@ -22,7 +22,7 @@
   "JNO",
   "JB",
   "JNB",
-  "JZ",
+  "JZ", x
   "JNZ",
   "JBE",
   "JNBE",
@@ -36,7 +36,7 @@
   "JNLE",
   "TEST",
   "XCHG",
-  "MOV",
+  "MOV", x
   "LEA",
   "CBW",
   "CWD",
@@ -59,7 +59,7 @@
   "LES",
   "LDS",
   "RETF",
-  "INT",
+  "INT", x
   "INTO",
   "IRET",
   "ROL",
@@ -81,7 +81,7 @@
   "IN",
   "OUT",
   "CALL",
-  "JMP",
+  "JMP", x
   "JMPF",
   "LOCK",
   "REPNZ",

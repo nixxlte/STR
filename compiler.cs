@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+// Code by NixxLTE -w-
+
 class Compiler {
     static Dictionary<string, byte> opcodes = new(StringComparer.OrdinalIgnoreCase) {
         { "MOV", 1 },
@@ -24,10 +26,9 @@ class Compiler {
 
     public static void Compile(string input) {
         var lines = File.ReadAllLines(input);
-        var program = new List<byte>();
+        var binary = new List<byte>();
         int address = 0;
-        foreach (var line in lines)
-        {
+        foreach (var line in lines) {
             var clean = line.Trim();
             if (string.IsNullOrEmpty(clean)) continue;
 
@@ -41,8 +42,7 @@ class Compiler {
             var instr = parts[0].ToUpper();
 
             // Calculate instruction size
-            switch (instr)
-            {
+            switch (instr) {
                 case "MOV": address += 3; break;
                 case "CMP": address += 3; break;
                 case "JZ": address += 2; break;
@@ -54,8 +54,7 @@ class Compiler {
         }
 
         address = 0;
-        foreach (var line in lines)
-        {
+        foreach (var line in lines) {
             var clean = line.Trim();
             if (string.IsNullOrEmpty(clean)) continue;
 
@@ -66,47 +65,46 @@ class Compiler {
             var parts = clean.Replace(",", "").Split(' ');
             var instr = parts[0].ToUpper();
 
-            switch (instr)
-            {
+            switch (instr) {
                 case "MOV":
-                    program.Add(opcodes["MOV"]);
-                    program.Add(registers[parts[1]]);
-                    program.Add(byte.Parse(parts[2]));
+                    binary.Add(opcodes["MOV"]);
+                    binary.Add(registers[parts[1]]);
+                    binary.Add(byte.Parse(parts[2]));
                     break;
 
                 case "CMP":
-                    program.Add(opcodes["CMP"]);
-                    program.Add(registers[parts[1]]);
-                    program.Add(registers[parts[2]]);
+                    binary.Add(opcodes["CMP"]);
+                    binary.Add(registers[parts[1]]);
+                    binary.Add(registers[parts[2]]);
                     break;
 
                 case "JZ":
-                    program.Add(opcodes["JZ"]);
-                    program.Add((byte)labels[parts[1]]);
+                    binary.Add(opcodes["JZ"]);
+                    binary.Add((byte)labels[parts[1]]);
                     break;
 
                 case "HALT":
-                    program.Add(opcodes["HALT"]);
+                    binary.Add(opcodes["HALT"]);
                     break;
 
                 case "JMP":
-                    program.Add(opcodes["JMP"]);
-                    program.Add((byte)labels[parts[1]]);
+                    binary.Add(opcodes["JMP"]);
+                    binary.Add((byte)labels[parts[1]]);
                     break;
 
                 case "CLR":
-                    program.Add(opcodes["CLR"]);
-                    program.Add(byte.Parse(parts[1]));
+                    binary.Add(opcodes["CLR"]);
+                    binary.Add(byte.Parse(parts[1]));
                     break;
 
                 case "INT":
-                    program.Add(opcodes["INT"]);
-                    program.Add(byte.Parse(parts[1]));
+                    binary.Add(opcodes["INT"]);
+                    binary.Add(byte.Parse(parts[1]));
                     break;
             }
         }
 
-        File.WriteAllBytes("output.str", program.ToArray());
+        File.WriteAllBytes("output.str", binary.ToArray());
         Console.WriteLine("COMPILED!");
     }
 }
