@@ -12,6 +12,7 @@ class Compiler {
         { "CMP", 5 },
         { "CLR", 6 },
         { "INT", 7 },
+        { "ADD", 8 },
         { "HALT", 99 }
     };
 
@@ -49,6 +50,7 @@ class Compiler {
                 case "JMP": address += 2; break;
                 case "INT": address += 2; break;
                 case "CLR": address += 2; break;
+                case "ADD": address += 3; break;
                 case "HALT": address += 1; break;
             }
         }
@@ -65,7 +67,8 @@ class Compiler {
             var parts = clean.Replace(",", "").Split(' ');
             var instr = parts[0].ToUpper();
 
-            switch (instr) {
+            switch (instr)
+            {
                 case "MOV":
                     binary.Add(opcodes["MOV"]);
                     binary.Add(registers[parts[1]]);
@@ -99,6 +102,11 @@ class Compiler {
 
                 case "INT":
                     binary.Add(opcodes["INT"]);
+                    binary.Add(byte.Parse(parts[1]));
+                    break;
+
+                case "ADD":
+                    binary.Add(opcodes["ADD"]);
                     binary.Add(byte.Parse(parts[1]));
                     break;
             }

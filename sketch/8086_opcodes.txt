@@ -1,4 +1,4 @@
-  "ADD",
+  "ADD", x
   "PUSH",
   "POP",
   "OR",

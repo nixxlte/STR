@@ -175,6 +175,19 @@ namespace STR
                             CPU.pc += 2;
                         break; }
 
+                        case 8: { // ADD reg reg
+                            int r1 = CPU.mem[CPU.pc + 1];
+                            int r2 = CPU.mem[CPU.pc + 2];
+
+                            int val1 = CPU.GetRegister(r1);
+                            int val2 = CPU.GetRegister(r2);
+
+                            r1 = val1 + val2;
+                        break; }
+
+                        case 9: { // PUSH reg
+                        break; }
+
                         case 99: { // HALT ()
                             Console.WriteLine("HALT! stopping");
                             Console.WriteLine($"last instruction before halt: {CPU.mem[CPU.pc - 1]}");
