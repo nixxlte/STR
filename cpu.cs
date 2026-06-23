@@ -19,8 +19,13 @@ namespace STR
         public static Int16 CX = 10;
         public static Int16 DX = 11;
 
+        // 16 bits registars
+        public ushort SS; // Stack Segment
+        public ushort SP; // Stack Pointer
+
         public static Int16 pc = 0; // program counter
-        public static Int16[] mem = new Int16[512]; // 512 bytes
+        // public static Int16[] mem = new Int16[512]; // 512 bytes
+        public byte[] mem = new byte[1048576];
         public static UInt16[] reg = new UInt16[4]; // general purpose registers
         public static bool ZF = false; // zero flag
         public static bool running = true;
@@ -186,6 +191,21 @@ namespace STR
                         break; }
 
                         case 9: { // PUSH reg
+                            int r = CPU.mem[CPU.pc + 1];
+                            int val = CPU.GetRegister(r);
+
+                            // Break the 16 bits value into 2 bytes (High and Low)
+                            byte byteHigh = (byte)((value >> 8) & 0xFF);
+                            byte byteLow = (byte)(value & 0xFF);
+
+                            // Decrements the SP to the high byte and calculates the physical address
+                            SP -= 1;
+                            int physicalAddressHigh = (SS * 16) + SP;
+                            Mem[physicalAddressHigh] = byteHigh;
+                            // Decrements the SP to the low byte and calculates the physical address
+                            SP -= 1;
+                            int physicalAddressLow = (SS * 16) + SP;
+                            Mem[physicalAddressLow] = byteLow;
                         break; }
 
                         case 99: { // HALT ()

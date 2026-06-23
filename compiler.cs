@@ -13,6 +13,7 @@ class Compiler {
         { "CLR", 6 },
         { "INT", 7 },
         { "ADD", 8 },
+        { "PUSH", 9 },
         { "HALT", 99 }
     };
 
@@ -44,13 +45,14 @@ class Compiler {
 
             // Calculate instruction size
             switch (instr) {
-                case "MOV": address += 3; break;
-                case "CMP": address += 3; break;
-                case "JZ": address += 2; break;
-                case "JMP": address += 2; break;
-                case "INT": address += 2; break;
-                case "CLR": address += 2; break;
-                case "ADD": address += 3; break;
+                case "MOV": address += 3;  break;
+                case "CMP": address += 3;  break;
+                case "JZ": address += 2;   break;
+                case "JMP": address += 2;  break;
+                case "INT": address += 2;  break;
+                case "CLR": address += 2;  break;
+                case "ADD": address += 3;  break;
+                case "PUSH": address += 2; break;
                 case "HALT": address += 1; break;
             }
         }
@@ -107,6 +109,12 @@ class Compiler {
 
                 case "ADD":
                     binary.Add(opcodes["ADD"]);
+                    binary.Add(byte.Parse(parts[1]));
+                    binary.Add(byte.Parse(parts[2]));
+                    break;
+
+                case "PUSH":
+                    binary.Add(opcodes["PUSH"]);
                     binary.Add(byte.Parse(parts[1]));
                     break;
             }
