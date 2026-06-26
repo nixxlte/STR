@@ -208,6 +208,25 @@ namespace STR
                             Mem[physicalAddressLow] = byteLow;
                         break; }
 
+                        case 10: { // POP reg
+                            uint addr = (uint)((SS << 4) + SP);
+
+                            byte byteHigh = (byte)((value >> 8) & 0xFF);
+                            byte byteLow = (byte)(value & 0xFF);
+                            
+                            ushort value = (ushort)(
+                                Mem[addr] |
+                                (Mem[addr + 1] << 8));
+
+                            SP += 1;
+                            int physicalAddressHigh = (SS * 16) + SP;
+                            Mem[physicalAddressHigh] = byteHigh;
+
+                            SP += 1;
+                            int physicalAddressLow = (SS * 16) + SP;
+                            Mem[physicalAddressLow] = byteLow;
+                        break; }
+
                         case 99: { // HALT ()
                             Console.WriteLine("HALT! stopping");
                             Console.WriteLine($"last instruction before halt: {CPU.mem[CPU.pc - 1]}");

@@ -14,6 +14,7 @@ class Compiler {
         { "INT", 7 },
         { "ADD", 8 },
         { "PUSH", 9 },
+        { "POP", 10 },
         { "HALT", 99 }
     };
 
@@ -53,6 +54,7 @@ class Compiler {
                 case "CLR": address += 2;  break;
                 case "ADD": address += 3;  break;
                 case "PUSH": address += 2; break;
+                case "POP": address += 2;  break;
                 case "HALT": address += 1; break;
             }
         }
@@ -115,6 +117,11 @@ class Compiler {
 
                 case "PUSH":
                     binary.Add(opcodes["PUSH"]);
+                    binary.Add(byte.Parse(parts[1]));
+                    break;
+
+                case "POP":
+                    binary.Add(opcodes["POP"]);
                     binary.Add(byte.Parse(parts[1]));
                     break;
             }

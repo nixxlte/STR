@@ -1,6 +1,6 @@
   "ADD", x
   "PUSH", x
-  "POP",
+  "POP", x
   "OR",
   "ADC",
   "SBB",
